@@ -1,13 +1,11 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, abort
-from flask_uploads import UploadSet, IMAGES, configure_uploads
+from werkzeug.utils import secure_filename
 from PIL import Image, ImageFilter, ImageEnhance
 
 app = Flask(__name__)
 
-app.config['UPLOADED_PHOTOS_DEST'] = 'static/img'
-photos = UploadSet('photos', IMAGES)
-configure_uploads(app, photos)
-
+app.config['UPLOAD_FOLDER'] = 'static/img'
 
 
 SESSION_TYPE = 'filesystem'
@@ -34,7 +32,7 @@ def index():
         black_and_white = request.form.get('black_and_white')
         filter_blur = request.form.get("filter_blur")
         if file and allowed_file(file.filename):
-            filename = photos.save(file)
+            filename = file.save(os.path.join(app.config['UPLOAD_FOLDER'], file))
             return redirect(url_for('process_image', filename=filename, size=size, brightness=brightness, contrast=contrast, saturation=saturation, black_and_white=black_and_white, filter_blur=filter_blur))
 
     return render_template('index.html')
