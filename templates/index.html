@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% block content %}
+<div class="upload-form">
+  <h1>Cargar imagenes</h1>
+  <form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="photo">Inserta una imagen: </label>
+      <input type="file" name="photo" id="photo" accept="image/*" required />
+    </div>
+    <div class="form-group">
+      <label for="size">Selecciona un tamaño: </label>
+      <select name="size" id="size">
+        <option value="original">Original</option>
+        <option value="small">Pequeño (300x300)</option>
+        <option value="medium">Medio (500x500)</option>
+        <option value="large">Grande (800x800)</option>
+      </select>
+    </div>
+    <div class="range-section">
+      <div class="form-group">
+        <label for="brightness">Brillo:</label>
+        <input
+          type="range"
+          id="brightness"
+          name="brightness"
+          min="0"
+          max="100"
+          value="100"
+        />
+      </div>
+      <div class="form-group">
+        <label for="contrast">Contraste:</label>
+        <input
+          type="range"
+          id="contrast"
+          name="contrast"
+          min="0"
+          max="100"
+          value="100"
+        />
+      </div>
+      <div class="form-group">
+        <label for="saturation">Saturación:</label>
+        <input
+          type="range"
+          id="saturation"
+          name="saturation"
+          min="0"
+          max="100"
+          value="100"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="black_and_white">Filtro blanco y negro: </label>
+      <input type="checkbox" name="black_and_white" id="black_and_white" />
+    </div>
+    <div class="form-group">
+      <label for="black_and_white">Filtro de desenfoque: </label>
+      <input type="checkbox" name="filter_blur" id="filter_blur" />
+    </div>
+    <button type="submit" class="btn btn-primary">Procesar</button>
+  </form>
+</div>
+
+
+
+{% endblock %}

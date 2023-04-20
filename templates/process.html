@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block content %}
+<div class="success-message">
+  <h1>Imagen procesada con éxito!</h1>
+  <div class="original-image">
+    <h2>Imagen original</h2>
+    <img
+      src="{{ url_for('static', filename='img/' + original_filename) }}"
+      alt="Imagen original" width="500" height="500"
+    />
+  </div>
+  <div class="processed-image">
+    <h2>Imagen procesada</h2>
+    <img
+      src="{{ url_for('static', filename='img/' + processed_filename) }}"
+      alt="Imagen procesada" width="500" height="500"
+    />
+    <div class="image-details">
+      <p>Brillo: {{ brightness }}</p>
+      <p>Saturación: {{ saturation }}</p>
+      <p>Contraste: {{ contrast }}</p>
+      <div class="image-actions">
+        <a class="btn" href="{{ url_for('download', filename=processed_filename) }}"
+          >Descargar imagen</a
+        >
+        <a class="btn"
+          href="{{ url_for('index' ) }}"
+          >Procesar nueva imagen</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
