@@ -1,7 +1,10 @@
 import os
+import threading
+import time
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, abort
-from werkzeug.utils import secure_filename
 from PIL import Image, ImageFilter, ImageEnhance
+
+
 
 app = Flask(__name__)
 
@@ -88,14 +91,50 @@ def process_image(filename):
     saturation_percentage = int(saturation * 100)
     contrast_percentage = int(saturation * 100)
 
+    delete_file_thread = threading.Thread(target=delete_file, args=(filename,))
+    delete_file_thread.start()
+
+
     return render_template('process.html', original_filename=filename, processed_filename=processed_filename, brightness=brightness_percentage, saturation=saturation_percentage, contrast=contrast_percentage)
 
 
 @app.route('/download/<filename>')
 def download(filename):
     try:
-        return send_from_directory('static/img', filename, as_attachment=True)
+        processed_path = 'processed_' + filename
+        return send_from_directory('static/img/', processed_path, as_attachment=True)
+    
+        
+
     except FileNotFoundError:
         abort(404)
+
+
+    finally:
+        delete_file_thread = threading.Thread(target=delete_file, args=(filename,))
+        delete_file_thread.start()
+
+
+def delete_file(filename):
+    time_limit = 1800
+    time.sleep(time_limit)
+
+    original_path = os.path.join("static/img/", filename)
+    processed_filename = 'processed_' + filename
+    processed_path = os.path.join("static/img/", processed_filename)
+    
+    print(processed_path)
+    if os.path.exists(processed_path):
+        os.remove(processed_path)
+        print(f"{processed_path} eliminado")
+    
+    time.sleep(1)
+    if os.path.exists(original_path):
+        os.remove(original_path)
+
+
+
+
+
 
 

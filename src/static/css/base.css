@@ -4,6 +4,8 @@ body {
   background-repeat: no-repeat;
   color: #f0f0f0;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 form {
@@ -54,6 +56,11 @@ form {
   justify-content: space-between;
 }
 
+.range-section input{
+  width: 10vh;
+  margin-left: 5px;
+}
+
 .upload-form button {
   margin-top: 20px;
   padding: 10px 20px;
@@ -79,16 +86,23 @@ form {
 
 .success-message {
   text-align: center;
-  margin-top: 50px;
+  margin: 0;
+  height: 100vh;
+  padding: 20px;
+  overflow: auto;
 }
 
 .original-image, .processed-image {
   margin: 50px auto;
 }
 
+.original-image img{
+  width: 40vh;
+}
 
 .processed-image img {
   margin-top: 20px;
+  width: 40vh;
 }
 
 
@@ -114,7 +128,7 @@ form {
 .btn {
   display: inline-block;
   padding: 6px 12px;
-  margin-bottom: 0;
+  margin-bottom: 10px;
   font-size: 14px;
   font-weight: normal;
   line-height: 1.42857143;

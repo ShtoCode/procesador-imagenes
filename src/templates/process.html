@@ -19,7 +19,7 @@
       <p>Saturación: {{ saturation }}</p>
       <p>Contraste: {{ contrast }}</p>
       <div class="image-actions">
-        <a class="btn" href="{{ url_for('download', filename=processed_filename) }}"
+        <a class="btn" href="{{ url_for('download', filename=original_filename) }}"
           >Descargar imagen</a
         >
         <a class="btn"
